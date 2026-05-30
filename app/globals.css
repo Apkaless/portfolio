@@ -1,0 +1,447 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --background: #060708;
+  --foreground: #f5f0eb;
+  --muted: #b8c5c6;
+  --panel: rgba(12, 15, 16, 0.78);
+  --panel-strong: rgba(16, 18, 18, 0.92);
+  --border: rgba(125, 220, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    "Segoe UI",
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  overflow-x: hidden;
+  cursor: url('/crosshair.svg') 16 16, crosshair;
+}
+
+a, button, [data-sound], input, textarea, select {
+  cursor: url('/crosshair-active.svg') 16 16, pointer;
+}
+
+body::selection {
+  background: rgba(125, 220, 255, 0.32);
+  color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+select {
+  background-color: rgba(6, 7, 8, 0.95);
+  color: #f5f0eb;
+  appearance: auto;
+}
+
+select option {
+  background-color: #0c0f10;
+  color: #f5f0eb;
+  padding: 8px 12px;
+}
+
+select option:hover,
+select option:checked {
+  background-color: rgba(125, 220, 255, 0.15);
+  color: #7ddcff;
+}
+
+[data-sound] {
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    filter 220ms ease,
+    box-shadow 220ms ease;
+}
+
+[data-sound]:hover {
+  filter: brightness(1.08);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #7ddcff;
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-rajdhani), system-ui, sans-serif;
+  letter-spacing: 0.03em;
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes spin-border {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.tactical-panel {
+  position: relative;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(135deg, rgba(125, 220, 255, 0.09), transparent 28%),
+    linear-gradient(315deg, rgba(255, 122, 24, 0.055), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)),
+    var(--panel);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 22px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.tactical-panel-strong {
+  position: relative;
+  border: 1px solid rgba(125, 220, 255, 0.24);
+  background:
+    linear-gradient(135deg, rgba(125, 220, 255, 0.11), transparent 34%),
+    linear-gradient(315deg, rgba(255, 122, 24, 0.07), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025)),
+    var(--panel-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 24px 70px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(18px);
+}
+
+.archive-command-panel {
+  position: relative;
+  border: 1px solid rgba(125, 220, 255, 0.2);
+  background:
+    linear-gradient(135deg, rgba(125, 220, 255, 0.07), transparent 34%),
+    linear-gradient(315deg, rgba(255, 122, 24, 0.045), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.012)),
+    rgba(7, 10, 11, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 24px 70px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(6px);
+}
+
+.repo-card-panel {
+  position: relative;
+  border: 1px solid rgba(125, 220, 255, 0.18);
+  background:
+    linear-gradient(135deg, rgba(125, 220, 255, 0.042), transparent 30%),
+    linear-gradient(315deg, rgba(255, 122, 24, 0.032), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0.006)),
+    rgba(7, 10, 11, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 18px 50px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(6px);
+}
+
+.repo-card-panel::after,
+.contact-glass-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--border-angle), transparent 60%, rgba(125, 220, 255, 0.7) 90%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: spin-border 3s linear infinite;
+}
+
+.repo-card-panel:hover::after,
+.contact-glass-card:hover::after {
+  opacity: 1;
+}
+
+.repo-card-panel:hover {
+  background:
+    linear-gradient(135deg, rgba(125, 220, 255, 0.062), transparent 30%),
+    linear-gradient(315deg, rgba(255, 122, 24, 0.042), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.034), rgba(255, 255, 255, 0.01)),
+    rgba(7, 10, 11, 0.48);
+}
+
+.contact-command-panel {
+  position: relative;
+  border: 1px solid rgba(125, 220, 255, 0.22);
+  background:
+    linear-gradient(135deg, rgba(125, 220, 255, 0.052), transparent 31%),
+    linear-gradient(315deg, rgba(255, 122, 24, 0.04), transparent 34%),
+    rgba(8, 11, 12, 0.40);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 26px 70px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7px);
+}
+
+.contact-glass-card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(7, 10, 11, 0.32);
+  backdrop-filter: blur(6px);
+}
+
+.contact-glass-card:hover {
+  background: rgba(12, 18, 20, 0.42);
+}
+
+.field-glass {
+  background: rgba(255, 255, 255, 0.072);
+  backdrop-filter: blur(4px);
+}
+
+.cinematic-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.cinematic-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.18) 46%, transparent 58%);
+  opacity: 0;
+  transform: translateX(-120%);
+  transition:
+    transform 620ms ease,
+    opacity 620ms ease;
+  pointer-events: none;
+}
+
+.cinematic-button:hover::before {
+  opacity: 1;
+  transform: translateX(120%);
+}
+
+.tactical-panel::before,
+.tactical-panel-strong::before,
+.archive-command-panel::before,
+.repo-card-panel::before,
+.contact-command-panel::before,
+.contact-glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(125, 220, 255, 0.08) 42%, transparent 58%),
+    radial-gradient(circle at 18% 0%, rgba(255, 122, 24, 0.08), transparent 26%);
+  opacity: 0.32;
+  pointer-events: none;
+  animation: ambientPanelSheen 7s ease-in-out infinite;
+}
+
+@keyframes ambientPanelSheen {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: translate3d(-2%, 0, 0);
+  }
+
+  50% {
+    opacity: 0.46;
+    transform: translate3d(2%, 0, 0);
+  }
+}
+
+.hud-corner {
+  position: relative;
+}
+
+.hud-corner::before,
+.hud-corner::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: rgba(125, 220, 255, 0.72);
+  pointer-events: none;
+}
+
+.hud-corner::before {
+  left: 10px;
+  top: 10px;
+  border-left: 1px solid;
+  border-top: 1px solid;
+}
+
+.hud-corner::after {
+  right: 10px;
+  bottom: 10px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.scanline-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-hover::after {
+  content: "";
+  position: absolute;
+  inset: -40% 0 auto;
+  height: 38%;
+  background: linear-gradient(180deg, transparent, rgba(125, 220, 255, 0.13), transparent);
+  transform: translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 560ms ease,
+    opacity 560ms ease;
+}
+
+.scanline-hover:hover::after {
+  transform: translateY(310%);
+  opacity: 1;
+}
+
+.terminal-cursor::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  margin-left: 5px;
+  background: #7ddcff;
+  vertical-align: -0.16em;
+  animation: cursorPulse 1s steps(2, start) infinite;
+}
+
+@keyframes cursorPulse {
+  0%,
+  46% {
+    opacity: 1;
+  }
+
+  47%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.noise-mask {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px),
+    radial-gradient(circle at 80% 30%, rgba(125, 220, 255, 0.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 50% 70%, rgba(255, 122, 24, 0.08) 0 1px, transparent 1px);
+  background-size: 46px 46px, 64px 64px, 82px 82px;
+}
+
+.range-control {
+  accent-color: #7ddcff;
+}
+
+@media (max-width: 640px) {
+  .tactical-panel,
+  .tactical-panel-strong,
+  .archive-command-panel,
+  .repo-card-panel,
+  .contact-command-panel,
+  .contact-glass-card {
+    backdrop-filter: blur(4px);
+  }
+
+  .archive-command-panel,
+  .contact-command-panel {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.045),
+      0 16px 46px rgba(0, 0, 0, 0.2);
+  }
+
+  .contact-command-panel {
+    padding: 1rem;
+  }
+
+  .scanline-hover::after {
+    height: 30%;
+  }
+
+  .cinematic-button::before {
+    transition-duration: 500ms;
+  }
+}
+
+.target-lock-hover {
+  position: relative;
+}
+
+.target-lock-hover::before,
+.target-lock-hover::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid transparent;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.target-lock-hover::before {
+  top: -12px;
+  left: -12px;
+  border-top-color: #ff7a18;
+  border-left-color: #ff7a18;
+}
+
+.target-lock-hover::after {
+  bottom: -12px;
+  right: -12px;
+  border-bottom-color: #ff7a18;
+  border-right-color: #ff7a18;
+}
+
+.target-lock-hover:hover::before {
+  top: -2px;
+  left: -2px;
+  opacity: 1;
+  transition-delay: 0.35s;
+}
+
+.target-lock-hover:hover::after {
+  bottom: -2px;
+  right: -2px;
+  opacity: 1;
+  transition-delay: 0.35s;
+}
